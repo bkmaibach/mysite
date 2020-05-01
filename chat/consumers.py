@@ -26,7 +26,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
 
-        async self.channel_layer.group_send(
+        await self.channel_layer.group_send(
             self.room_group_name,
             {
                 'type': 'chat_message',
