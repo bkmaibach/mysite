@@ -4,7 +4,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
-        print('CONNECTION RECEIVED')
+        # print('CONNECTION RECEIVED')
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
 
@@ -15,14 +15,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.accept()
 
     async def disconnect(self):
-        print('CONNECTION LOST')
+        # print('CONNECTION LOST')
         await self.channel_layer.group_discard(
             self.room_group_name,
             self.channel_name
         )
 
     async def receive(self, text_data):
-        print('MESSAGE RECEIVED')
+        # print('MESSAGE RECEIVED')
         text_data_json = json.loads(text_data)
         message = text_data_json['message']
 
@@ -35,7 +35,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         )
 
     async def chat_message(self, event):
-        print('CHAT MESSAGE CALLED')
+        # print('CHAT MESSAGE CALLED')
         message = event['message']
 
         await self.send(text_data=json.dumps({
